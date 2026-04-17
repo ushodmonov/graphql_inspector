@@ -494,8 +494,15 @@ class GraphQLContentContainer extends StatelessWidget {
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
+          // Avoid unbounded-height layouts when this widget is placed inside
+          // vertical scrollables (e.g. ListView), while still allowing
+          // full-height usage when parent constraints are finite.
+          final effectiveMaxHeight = maxHeight.isFinite
+              ? maxHeight
+              : (constraints.maxHeight.isFinite ? constraints.maxHeight : 220.0);
+
           return ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: maxHeight),
+            constraints: BoxConstraints(maxHeight: effectiveMaxHeight),
             child: SingleChildScrollView(
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
