@@ -392,6 +392,7 @@ class GraphQLLogDetailScreen extends StatelessWidget {
                 content: prettyJson(log['response']),
                 isJson: true,
                 colorizeJson: colorizeJson,
+                maxHeight: true,
               ),
             ),
           ],
@@ -407,6 +408,7 @@ class GraphQLSectionBlock extends StatelessWidget {
   final String content;
   final bool isJson;
   final TextSpan Function(String input) colorizeJson;
+  final bool maxHeight;
 
   const GraphQLSectionBlock({
     super.key,
@@ -415,6 +417,7 @@ class GraphQLSectionBlock extends StatelessWidget {
     required this.content,
     required this.isJson,
     required this.colorizeJson,
+    this.maxHeight = false,
   });
 
   @override
@@ -441,12 +444,21 @@ class GraphQLSectionBlock extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          GraphQLContentContainer(
-            content: value,
-            isJson: isJson,
-            colorizeJson: colorizeJson,
-            maxHeight: 360,
-          ),
+          if (maxHeight) ...[
+            GraphQLContentContainer(
+              content: value,
+              isJson: isJson,
+              colorizeJson: colorizeJson,
+              maxHeight: double.infinity,
+            ),
+          ] else ...[
+            GraphQLContentContainer(
+              content: value,
+              isJson: isJson,
+              colorizeJson: colorizeJson,
+              maxHeight: 220,
+            ),
+          ],
         ],
       ),
     );
