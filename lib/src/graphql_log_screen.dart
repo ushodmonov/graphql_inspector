@@ -186,6 +186,23 @@ class _GraphQLLogScreenState extends State<GraphQLLogScreen> {
   }
 
   String _prettyJson(dynamic input) {
+    if (input == null) {
+      return '';
+    }
+
+    if (input is String) {
+      final trimmed = input.trim();
+      if (trimmed.isEmpty) {
+        return '';
+      }
+      try {
+        final decoded = jsonDecode(trimmed);
+        return const JsonEncoder.withIndent('  ').convert(decoded);
+      } catch (_) {
+        return input;
+      }
+    }
+
     try {
       return const JsonEncoder.withIndent('  ').convert(input);
     } catch (_) {

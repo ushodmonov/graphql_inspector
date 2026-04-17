@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:gql/language.dart' show printNode;
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -57,16 +55,8 @@ class LoggingLink extends Link {
     final stream = innerLink.request(request, forward);
 
     return stream.map((response) {
-      GQLLogger().updateLastResponse(_prettyJson(response.data));
+      GQLLogger().updateLastResponse(response.data);
       return response;
     });
-  }
-
-  String _prettyJson(dynamic input) {
-    try {
-      return const JsonEncoder.withIndent('  ').convert(input);
-    } catch (_) {
-      return input.toString();
-    }
   }
 }

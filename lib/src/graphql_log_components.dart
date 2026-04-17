@@ -470,6 +470,7 @@ class GraphQLContentContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final shouldHighlightJson = isJson && content.length <= 60000;
 
     return Container(
       width: double.infinity,
@@ -488,25 +489,10 @@ class GraphQLContentContainer extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minWidth: constraints.maxWidth),
-                  child: isJson
-                      ? SelectableText.rich(
-                          colorizeJson(content),
-                          style: TextStyle(
-                            fontFamily: 'Courier',
-                            fontSize: 12,
-                            color: colorScheme.onSurface,
-                            height: 1.35,
-                          ),
-                        )
-                      : SelectableText(
-                          content,
-                          style: TextStyle(
-                            fontFamily: 'Courier',
-                            fontSize: 12,
-                            color: colorScheme.onSurface,
-                            height: 1.35,
-                          ),
-                        ),
+                  child: _buildContentText(
+                    colorScheme: colorScheme,
+                    shouldHighlightJson: shouldHighlightJson,
+                  ),
                 ),
               ),
             ),
@@ -514,6 +500,29 @@ class GraphQLContentContainer extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Widget _buildContentText({
+    required ColorScheme colorScheme,
+    required bool shouldHighlightJson,
+  }) {
+    final textStyle = TextStyle(
+      fontFamily: 'Courier',
+      fontSize: 12,
+      color: colorScheme.onSurface,
+      height: 1.35,
+    );
+
+    if (!shouldHighlightJson) {
+      return SelectableText(content, style: textStyle);
+    }
+
+    try {
+      return SelectableText.rich(colorizeJson(content), style: textStyle);
+    } catch (_) {
+      // Fallback for malformed or very large JSON chunks.
+      return SelectableText(content, style: textStyle);
+    }
   }
 }
 
