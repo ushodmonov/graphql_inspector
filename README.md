@@ -8,8 +8,8 @@ A Flutter package to intercept and inspect GraphQL API requests and responses �
 graphql_inspector/
 ├── lib/
 │   └── src/
-│       ├── GraphQLLogScreen.dart
-│       └── LoggingLink.dart
+│       ├── graphql_log_screen.dart
+│       └── logging_link.dart
 ├── test/
 ├── README.md
 ├── pubspec.yaml
