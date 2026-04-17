@@ -298,10 +298,9 @@ class GraphQLLogDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final url = (log['url'] ?? '').toString();
     final headers = log['headers'];
-    final isFailed = (log['response'] ?? '')
-        .toString()
-        .toLowerCase()
-        .contains('"errors"');
+    final isFailed = (log['response'] ?? '').toString().toLowerCase().contains(
+      '"errors"',
+    );
     final isQuery = (log['query'] ?? '')
         .toString()
         .trimLeft()
@@ -385,17 +384,15 @@ class GraphQLLogDetailScreen extends StatelessWidget {
                 ),
               ],
             ),
-            ListView(
+            Padding(
               padding: const EdgeInsets.fromLTRB(12, 12, 12, 20),
-              children: [
-                GraphQLSectionBlock(
-                  title: 'Response Body',
-                  icon: Icons.data_object_rounded,
-                  content: prettyJson(log['response']),
-                  isJson: true,
-                  colorizeJson: colorizeJson,
-                ),
-              ],
+              child: GraphQLSectionBlock(
+                title: 'Response Body',
+                icon: Icons.data_object_rounded,
+                content: prettyJson(log['response']),
+                isJson: true,
+                colorizeJson: colorizeJson,
+              ),
             ),
           ],
         ),
@@ -436,7 +433,10 @@ class GraphQLSectionBlock extends StatelessWidget {
               const SizedBox(width: 6),
               Text(
                 title,
-                style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                ),
               ),
             ],
           ),
@@ -577,7 +577,9 @@ class _StatusBadge extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     return _RoundedBadge(
       label: isFailed ? 'Failed' : 'Success',
-      textColor: isFailed ? colorScheme.onErrorContainer : Colors.green.shade900,
+      textColor: isFailed
+          ? colorScheme.onErrorContainer
+          : Colors.green.shade900,
       backgroundColor: isFailed
           ? colorScheme.errorContainer
           : Colors.green.shade100,

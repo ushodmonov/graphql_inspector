@@ -5,7 +5,7 @@
   "packages": [
     {
       "name": "graphql_inspector",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "dependencies": [
         "flutter",
         "flutter_html",
