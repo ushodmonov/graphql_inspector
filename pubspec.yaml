@@ -1,0 +1,31 @@
+name: graphql_inspector
+description: "This package helps to inspect GraphQL requests just like other network inspection packages for REST APIs"
+version: 1.0.1
+homepage: https://github.com/zedxer/graphql_inspector
+repository: https://github.com/zedxer/graphql_inspector
+issue_tracker: https://github.com/zedxer/graphql_inspector/issues
+
+
+environment:
+  sdk: ^3.8.1
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  graphql_flutter: ^5.2.0
+  flutter_html: ^3.0.0
+  json_annotation: ^4.9.0
+  gql: ^1.0.0+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  json_serializable: ^6.9.5
+  
+flutter:
+
+
+maintainers:
+  - Uchqun Shodmonov <shodmonov.uchqun@gmail.com>
