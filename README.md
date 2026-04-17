@@ -29,14 +29,6 @@ graphql_inspector/
 
 ---
 
-## 📸 Screenshots
-
-| Query View | Response View | cURL Export |
-|------------|----------------|-------------|
-| ![query](screenshots/query.png) | ![response](screenshots/response.png) | ![curl](screenshots/curl.png) |
-
----
-
 ## 🚀 Getting Started
 
 ### 1. Add dependency
